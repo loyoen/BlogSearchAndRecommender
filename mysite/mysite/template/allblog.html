@@ -1,0 +1,15 @@
+{%extends 'base.html'%}
+{% block diff %}
+{% for blog in blogs %}
+<a href='/blogs/{{blog.id}}/'>{{blog.title}}
+</a>
+{{blog.content}}
+<br>
+{% endfor %}
+<form action='/write/' method='post'>
+    <input type='text' name='title'>
+    <input type='text' name='content'>
+    <input type='submit' vlaue='submit'>
+</form>
+{% endblock %}
+

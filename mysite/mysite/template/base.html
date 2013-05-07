@@ -1,0 +1,31 @@
+<html>
+<head>loyoen
+</head>
+<body>
+    <div id="head">
+    	<div class='main'>    
+    	<ul>
+           	<li class='logo'><a href="/" title="Home">loyoen</a></li>
+    		<li><a href="/" title="Home">Home</a></li>
+            <li><a href="/blogs" title="articles">articles</a></li>
+            <li><a href="/search" title="About">Search</a></li>
+            <li><a href="/about" title="About">About</a></li>
+    	</ul>
+    	<div class="social">
+	    	<a class="douban" href="http://www.douban.com/people/chibao007/" title="douban">douban</a>
+	    	<a class="weibo" href="http://weibo.com/greenblueblue" title="weibo">weibo</a>
+	    	<a class="github" href="https://github.com/greeensy" title="GitHub">GitHub</a>
+	    	<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+    	</div>
+    	<form class="search" action="/search/" method="post">
+	    	<input type="text" name="q">
+    	</form>
+    	</div>
+    	<ul class="index-top"> </ul>
+    </div>
+    {% block diff %}
+    {% endblock %}
+</body>
+</html>
+
+

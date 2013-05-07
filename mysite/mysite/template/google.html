@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+{%extends 'base.html'%}
+{% block diff %}
+
+     <style type="text/css">
+        #searchcontrol .gsc-control
+        {
+            width: 100%;
+        }
+        #searchcontrol .gsc-result-cnblogs .gs-title
+        {
+            color:Red;
+        }
+    </style>
+    <script src="https://www.google.com/jsapi?key=ABQIAAAAWUT8aaIj9mtqQa087LjVOhTPB5B7LRDljl2Cr4-JwBNft1mFrRRmR1RoYEUCZCj0dtS2gIc8Al4-VA"
+        type="text/javascript"></script>
+    <script language="Javascript" type="text/javascript">
+        google.load("search", "1");
+        var count = 0;
+        function exec(s) {
+            //搜索设置
+            var options = new google.search.SearcherOptions();
+            //当搜索结果为空时显示内容
+            options.setNoResultsString('查询结果为空！');
+            //搜索控件实例化
+            var searchControl = new google.search.SearchControl();
+            //每次显示8个搜索结果（取值范围：1-8）
+            searchControl.setResultSetSize(8);
+            //博客搜索  只搜索博客   
+            var siteCnblogs = new google.search.WebSearch();
+            //标头
+            siteCnblogs.setUserDefinedLabel("博客搜索");
+            //站点限制
+            siteCnblogs.setSiteRestriction("www.cnblogs.com");
+            
+            searchControl.addSearcher(siteCnblogs, options);
+            
+            //绘制搜索
+            var drawOptions = new google.search.DrawOptions();
+            //drawOptions.setDrawMode(google.search.SearchControl.DRAW_MODE_TABBED);
+            //document.getElementById("searchcontrol").style.display="none";
+            searchControl.draw(document.getElementById("searchcontrol"), drawOptions);
+            //搜索完成调用searchComplete()处理结果
+            searchControl.setSearchCompleteCallback(this,searchComplete);
+           //执行搜索
+            searchControl.execute(s);
+            
+        }
+    
+        
+         
+        
+        function OnLoad() {     
+        
+            var keyword = document.form1.user.value;
+            alert(keyword); 
+            exec(keyword);
+     
+            
+        }
+        
+         function nextpage() {     
+        
+            
+         }
+
+         function lastpage() {     
+        
+          
+     
+            
+        }
+      
+         
+        function searchComplete(searchControl,searcher){
+           
+            alert("comp  "+searcher.results.length);
+            //alert(searcher.cursor.pages[0].start);
+            
+            var contents="";
+            searcher.cursor.currentPageIndex = 2;
+            for(var i=0;i<searcher.results.length;i++){
+                var result = searcher.results[i];
+                contents += result.titleNoFormatting;
+                contents += "<br>";
+                contents += result.content;
+                contents += "<br>";
+                contents += "<a href = " + result.url + ">" + result.url + "</a>";  // 不知什么原因此项为空 alert时为undefined
+                contents += "<br><br>";
+                
+                
+             //   alert(result.titleNoFormatting);
+               // f.WriteLine(result.titleNoFormatting);
+               // f.WriteLine(result.content);
+              //  f.WriteLine(result.url);  // 不知什么原因此项为空 alert时为undefined
+                //alert(result.url);         
+            }
+            //alert(contents);
+            document.getElementById('showresults').innerHTML = contents;
+            if(searcher.currentPageIndex!=2)
+                searcher.gotoPage(2);
+        }
+    
+        //框架加载完成后调用
+        google.setOnLoadCallback(OnLoad);
+        
+       // GetLine();
+        
+    </script>
+    <div id="searchcontrol">
+        加载中...
+    </div>
+    <div id="showresults">
+        
+    </div>
+    <form name="form1">
+        <input type= "hidden" name ="user" value={{key}} /> 
+    </form>
+
+    <button name="nextpage" onclick="nextpage">
+        next page
+    </button>
+    <button name="lastpage" onclick="lasttpage">
+        last page
+    </button>
+{% endblock %}
+
+
+
