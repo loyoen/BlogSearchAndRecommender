@@ -38,7 +38,7 @@
             //绘制搜索
             var drawOptions = new google.search.DrawOptions();
             //drawOptions.setDrawMode(google.search.SearchControl.DRAW_MODE_TABBED);
-            //document.getElementById("searchcontrol").style.display="none";
+            document.getElementById("searchcontrol").style.display="none";
             searchControl.draw(document.getElementById("searchcontrol"), drawOptions);
             //搜索完成调用searchComplete()处理结果
             searchControl.setSearchCompleteCallback(this,searchComplete);
@@ -53,52 +53,75 @@
         function OnLoad() {     
         
             var keyword = document.form1.user.value;
-            alert(keyword); 
+            //alert(keyword); 
             exec(keyword);
      
             
         }
-        
+         var count=0;
          function nextpage() {     
-        
-            
+            if(count<7)
+            {
+                count++;
+                document.getElementById('showresults').innerHTML = contents[count];
+            }
+            else
+            {
+                alert("end page");
+            }
          }
 
          function lastpage() {     
-        
-          
-     
+            if(count<1)
+            {
+                alert("start page");
+            }
+            else
+            {
+                count--;
+                document.getElementById('showresults').innerHTML = contents[count];
+            }
             
         }
       
-         
+        
+        var contents = new Array("","","","","","","",""); 
+        //var contents[]={"","","","","","","",""};
         function searchComplete(searchControl,searcher){
            
-            alert("comp  "+searcher.results.length);
+            //alert("comp  "+searcher.results.length);
             //alert(searcher.cursor.pages[0].start);
             
-            var contents="";
-            searcher.cursor.currentPageIndex = 2;
+            //var contents="";
+            //alert(searcher.cursor.currentPageIndex);
+            var ans="";
+            //alert(searcher.results.length);
             for(var i=0;i<searcher.results.length;i++){
                 var result = searcher.results[i];
-                contents += result.titleNoFormatting;
-                contents += "<br>";
-                contents += result.content;
-                contents += "<br>";
-                contents += "<a href = " + result.url + ">" + result.url + "</a>";  // 不知什么原因此项为空 alert时为undefined
-                contents += "<br><br>";
-                
-                
+                ans += result.titleNoFormatting;
+                ans += "<br>";
+                ans += result.content;
+                ans += "<br>";
+                ans += "<a href = " + result.url + ">" + result.url + "</a>";  // 不知什么原因此项为空 alert时为undefined
+                ans += "<br><br>";
+            }
+            contents[searcher.cursor.currentPageIndex]=ans;    
+            //alert(ans);  
+            document.getElementById('showresults').innerHTML = contents[0];
+            if(searcher.cursor.currentPageIndex<7)
+            {
+                searcher.gotoPage(searcher.cursor.currentPageIndex+1);
+            }
              //   alert(result.titleNoFormatting);
                // f.WriteLine(result.titleNoFormatting);
                // f.WriteLine(result.content);
               //  f.WriteLine(result.url);  // 不知什么原因此项为空 alert时为undefined
                 //alert(result.url);         
-            }
+            
             //alert(contents);
-            document.getElementById('showresults').innerHTML = contents;
-            if(searcher.currentPageIndex!=2)
-                searcher.gotoPage(2);
+            
+            //if(searcher.currentPageIndex!=2)
+            //    searcher.gotoPage(2);
         }
     
         //框架加载完成后调用
@@ -117,10 +140,10 @@
         <input type= "hidden" name ="user" value={{key}} /> 
     </form>
 
-    <button name="nextpage" onclick="nextpage">
+    <button name="nextpage" onclick="nextpage()">
         next page
     </button>
-    <button name="lastpage" onclick="lasttpage">
+    <button name="lastpage" onclick="lastpage()">
         last page
     </button>
 {% endblock %}

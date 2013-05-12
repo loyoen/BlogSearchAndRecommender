@@ -1,8 +1,10 @@
 {%extends 'base.html'%}
 {% block diff %}
 {% for blog in blogs %}
+<h1>
 <a href='/blogs/{{blog.id}}/'>{{blog.title}}
 </a>
+<h2>
 {{blog.content}}
 <br>
 {% endfor %}
