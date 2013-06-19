@@ -1,48 +1,109 @@
-<html>
-<head>loyoen
-    <style type="text/css"> 
-        html * { padding:0; margin:0; }
-        body * { padding:10px 20px; }
-        body * * { padding:0; }
-        body { font:small sans-serif; }
-        body>div { border-bottom:1px solid #ddd; }
-        h1 { font-weight:normal; }
-        h2 { margin-bottom:.8em; }
-        h2 span { font-size:80% ; color:#666; font-weight:normal; }
-        h3 { margin:1em 0 .5em 0; }
-        h4 { margin:0 0 .5em 0; font-weight: normal; }
-        td {font-size:1em;  padding:3px 17px 2px 17px;}
-        ul { margin-left: 2em; margin-top: 1em; }
-        #diff { background: #e0ebff; }
-        #diff h1 { font-weight: normal; color: #666; }
-        #diff table { border:none; background:transparent; }
-    </style>  
- 
-</head>
-<body>
-    <div id="head">
-    	<div class='main'>    
-    	<ul>
-           	<li class='logo'><a href="/" title="Home">loyoen</a></li>
-    		<li><a href="/" title="Home">Home</a></li>
-            <li><a href="/blogs" title="articles">articles</a></li>
-            <li><a href="/search" title="About">Search</a></li>
-            <li><a href="/about" title="About">About</a></li>
-    	</ul>
-    	<div class="social">
-	    	<a class="douban" href="http://www.douban.com/people/chibao007/" title="douban">douban</a>
-	    	<a class="weibo" href="http://weibo.com/greenblueblue" title="weibo">weibo</a>
-	    	<a class="github" href="https://github.com/greeensy" title="GitHub">GitHub</a>
-	    	<a class="rss" href="/atom.xml" title="RSS">RSS</a>
-    	</div>
-    	<form class="search" action="/search/" method="post">
-	    	<input type="text" name="q">
-    	</form>
-    	</div>
-    	<ul class="index-top"> </ul>
-    </div>
-    {% block diff %}
+﻿<html>
+<title>
+    {% block head_title %}
     {% endblock %}
+</title>
+<head>
+    <meta http-equiv=Content-Type content="text/html;charset=utf-8">
+    <link href="/site_media/css/base.css" rel="stylesheet" type="text/css" />
+     <script type="text/javascript"> 
+            $(document).ready(function(){
+                $(".s_corner").corner("3px");
+            }) ;
+         </script>
+        {% block head_extra %}
+    {% endblock %}
+ </head>
+ 
+<body align='center'>
+<div id='main' >
+        <div id ='head' style="text-align:center;margin:0px auto;">
+        <div id='top' class='s_corner'>
+        <div id = "top1">
+            <div id = "IMG">
+                <img width=83% height=70% src="/site_media/image/site/22.jpg">
+            </div>
+        </div>
+        <div id = "top2">
+            <div id = "top21" class='s_corner' onclick="location.href='/'" >
+                <div style="margin-top:35px;margin-left:10px;">
+                    
+                    <div id='top212' class='abstract'>
+                        <font size=2 class = 'ab' align='center'><span >首页</span></font>
+                    </div>
+                </div>
+            </div>
+            <div id = "top22" class='s_corner'  onclick="location.href='/blogs'">
+                 <div style="margin-top:35px;margin-left:10px;">
+                    
+                    <div id='top222' class='abstract' >
+                        <font size=2 class = 'ab' align='center'><span>博客</span></font>
+                    </div>
+                </div>
+            </div>
+            <div id = "top23"class='s_corner'  onclick="location.href='/write'" >
+               <div style="margin-top:35px;margin-left:10px;">
+                   
+                    <div id='top232' class='abstract'>
+                        <font size=2 class = 'ab' align='center'>写博客 </font>
+                    </div>
+                </div>
+            </div>
+            <div id = "top24" class='s_corner' onclick="location.href='/project'" >
+                <div style="margin-top:35px;margin-left:10px;">
+                   
+                    <div id='top242' class='abstract' >
+                        <font size=2 class = 'ab' align='center'>项目</font>
+                    </div>
+                </div>
+            </div>
+            <div id = "top25" class='s_corner' onclick="location.href='/about'" class='show_corner' >
+               <div style="margin-top:35px;margin-left:10px;">
+                   
+                    <div id='top252' class='abstract'>
+                        <font size=2 class = 'ab' align="center">我</font>
+                    </div>
+                </div>
+            </div>
+            <div style="clear:both">
+            </div>
+        </div>
+        <div id = "top3">
+            <div id = "top31" class='s_corner'>
+                <form>
+                    <div style="float:left;border:0px solid gray;">
+                        <input type = "text" id='searchI' style="margin-top:1px;" class='inputS' onblur="if(this.value=='') {this.value='站内搜搜'; }">
+                    </div>
+                    <div style="float:left;border-right:0px solid white;border-left:solid 0px gray ;height:28px;">
+                    </div>
+                    <div id='searchButtom' class='inputS'>
+                    </div>
+                    <div style="clear:both;">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div style="clear:both;">
+        </div>
+            </div>
+    </div>
+    <div id ='content'>
+        <div id= 'leftFrame'>
+            {% block leftFrame %}
+            {% endblock %}
+        </div>
+        <div id = 'rightFrame'>
+             {% block rightFrame %}
+            {% endblock %}
+        </div>
+        <div style="clear:both;">
+        </div>
+    </div>
+    <div id="bottom">
+     </div>
+    <div style="clear:both;">
+    </div>
+</div>
 </body>
 </html>
 
